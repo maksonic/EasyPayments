@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3" />
+
+    <ImageView
+        android:id="@+id/img_logo_brand"
+        android:layout_width="match_parent"
+        android:layout_height="0.dp"
+        android:layout_weight="0.3"
+        android:layout_margin="@dimen/padding_16dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginEnd="@dimen/padding_16dp"
+        android:text="@string/txt_onboarding_body"
+        android:textAlignment="center"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/EasyPay.Button.Primary"
+        android:id="@+id/btn_navigate_to_catalog"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_primary_height"
+        android:layout_margin="@dimen/padding_24dp"
+        android:text="@string/btn_title_next" />
+</LinearLayout>

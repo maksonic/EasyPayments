@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EasyPay.Button.Primary" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="rippleColor">@color/on_primary_container</item>
+        <item name="android:textColor">@color/on_primary</item>
+    </style>
+</resources>

@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="nero">#FF212121</color>
+    <color name="jet">#FF343434</color>
+    <color name="silver_foil">#FFAEAEAE</color>
+    <color name="chinese_black">#FF131815</color>
+    <color name="green_sheen">#3E009746</color>
+    <color name="green_dark_spring">#FF1E613D</color>
+    <color name="blue_brand">#FF1733C7</color>
+    <color name="green_sea_foam">#BE9FDCBB</color>
+    <color name="anti_flash_white">#FFEEF1F9</color>
+    <color name="gray_bright">#FFECECEC</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="background">@color/anti_flash_white</color>
+    <color name="on_background">@color/nero</color>
+    <color name="primary">@color/blue_brand</color>
+    <color name="primary_container">@color/white</color>
+    <color name="on_primary_container">@color/green_sea_foam</color>
+    <color name="on_primary">@color/white</color>
+    <color name="surface">@color/white</color>
+    <color name="outline">@color/jet</color>
 </resources>
