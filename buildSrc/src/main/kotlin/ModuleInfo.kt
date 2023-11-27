@@ -26,11 +26,6 @@ object ModuleInfo {
         namespace = "ru.maksonic.easypayments.data"
     )
 
-    object Domain : AbstractModule(
-        path = ":domain",
-        namespace = "ru.maksonic.easypayments.domain"
-    )
-
     object Navigation {
         object Graph : AbstractModule(
             path = ":navigation:graph",
@@ -40,6 +35,36 @@ object ModuleInfo {
         object Router : AbstractModule(
             path = ":navigation:router",
             namespace = "ru.maksonic.easypayments.navigation.router"
+        )
+    }
+
+    object Feature {
+        object Auth {
+            object Api : AbstractModule(
+                path = ":feature:auth:api",
+                namespace = "ru.maksonic.easypayments.feature.auth:api"
+            )
+
+            object Core : AbstractModule(
+                path = ":feature:auth:core",
+                namespace = "ru.maksonic.easypayments.feature.auth:core"
+            )
+
+            object Ui : AbstractModule(
+                path = ":feature:auth:ui",
+                namespace = "ru.maksonic.easypayments.feature.auth:ui"
+            )
+
+        }
+
+        object Onboarding : AbstractModule(
+            path = ":feature:onboarding",
+            namespace = "ru.maksonic.easypayments.feature.onboarding"
+        )
+
+        object Payments : AbstractModule(
+            path = ":feature:payments",
+            namespace = "ru.maksonic.easypayments.feature.payments"
         )
     }
 }
