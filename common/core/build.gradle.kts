@@ -43,3 +43,6 @@ android {
         }
     }
 }
+dependencies {
+    implementation(libs.lifecycle.viewmodel.ktx)
+}
