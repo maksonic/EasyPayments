@@ -50,12 +50,17 @@ android {
 }
 
 dependencies {
+    implementation(project(ModuleInfo.Data.path))
+    implementation(project(ModuleInfo.Common.Core.path))
+    implementation(project(ModuleInfo.Common.Ui.path))
+    implementation(project(ModuleInfo.Navigation.Graph.path))
+    implementation(project(ModuleInfo.Navigation.Router.path))
+    implementation(project(ModuleInfo.Feature.Auth.Api.path))
+    implementation(project(ModuleInfo.Feature.Auth.Core.path))
+    implementation(project(ModuleInfo.Feature.Auth.Ui.path))
+    implementation(project(ModuleInfo.Feature.Onboarding.path))
+    implementation(project(ModuleInfo.Feature.Payments.path))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junit.ext)
-    androidTestImplementation(libs.espresso.core)
 }

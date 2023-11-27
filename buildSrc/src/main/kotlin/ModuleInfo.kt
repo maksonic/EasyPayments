@@ -42,17 +42,17 @@ object ModuleInfo {
         object Auth {
             object Api : AbstractModule(
                 path = ":feature:auth:api",
-                namespace = "ru.maksonic.easypayments.feature.auth:api"
+                namespace = "ru.maksonic.easypayments.feature.auth.api"
             )
 
             object Core : AbstractModule(
                 path = ":feature:auth:core",
-                namespace = "ru.maksonic.easypayments.feature.auth:core"
+                namespace = "ru.maksonic.easypayments.feature.auth.core"
             )
 
             object Ui : AbstractModule(
                 path = ":feature:auth:ui",
-                namespace = "ru.maksonic.easypayments.feature.auth:ui"
+                namespace = "ru.maksonic.easypayments.feature.auth.ui"
             )
 
         }
