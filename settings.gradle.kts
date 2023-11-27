@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "EasyPayments"
 include(":app")
- 
+include(":common:core")
+include(":common:ui")
+include(":navigation:router")
+include(":navigation:graph")
