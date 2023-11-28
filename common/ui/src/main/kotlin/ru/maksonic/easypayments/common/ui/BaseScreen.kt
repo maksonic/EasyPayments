@@ -1,17 +1,15 @@
 package ru.maksonic.easypayments.common.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import androidx.lifecycle.flowWithLifecycle
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.StateFlow
@@ -53,6 +51,14 @@ abstract class BaseScreen<VB : ViewBinding> : Fragment() {
     }
 
     abstract fun render(savedInstanceState: Bundle?)
+
+    protected inline fun <T> StateFlow<T>.render(crossinline onModel: (T) -> Unit) {
+        lifecycleScope.launch {
+            this@render.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect { model ->
+                onModel(model)
+            }
+        }
+    }
 
     override fun onDestroyView() {
         _binding = null

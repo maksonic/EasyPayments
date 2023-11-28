@@ -5,6 +5,6 @@
     app:startDestination="@id/onboardingScreen">
     <fragment
         android:id="@+id/onboardingScreen"
-        android:name="ru.maksonic.easypayments.feature.onboarding.OnboardingScreen"
+        android:name="ru.maksonic.easypayments.feature.onboarding.ui.OnboardingScreen"
         android:label="OnboardingScreen" />
 </navigation>

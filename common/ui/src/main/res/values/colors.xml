@@ -3,12 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="nero">#FF212121</color>
     <color name="jet">#FF343434</color>
+    <color name="gray_taupe">#FF898989</color>
     <color name="silver_foil">#FFAEAEAE</color>
-    <color name="chinese_black">#FF131815</color>
-    <color name="green_sheen">#3E009746</color>
-    <color name="green_dark_spring">#FF1E613D</color>
+    <color name="dark_gunmetal">#FF1B1D2D</color>
+    <color name="blue_persian_60">#3E1733C7</color>
+    <color name="blue_vista">#FF8A98E1</color>
     <color name="blue_brand">#FF1733C7</color>
-    <color name="green_sea_foam">#BE9FDCBB</color>
+    <color name="green_sea_foam">#BE7D8BD6</color>
     <color name="anti_flash_white">#FFEEF1F9</color>
     <color name="gray_bright">#FFECECEC</color>
     <color name="white">#FFFFFFFF</color>
@@ -21,5 +22,5 @@
     <color name="on_primary_container">@color/green_sea_foam</color>
     <color name="on_primary">@color/white</color>
     <color name="surface">@color/white</color>
-    <color name="outline">@color/jet</color>
+    <color name="outline">@color/gray_taupe</color>
 </resources>

@@ -57,10 +57,20 @@ object ModuleInfo {
 
         }
 
-        object Onboarding : AbstractModule(
-            path = ":feature:onboarding",
-            namespace = "ru.maksonic.easypayments.feature.onboarding"
-        )
+        object Onboarding {
+            object Data : AbstractModule(
+                path = ":feature:onboarding:data",
+                namespace = "ru.maksonic.easypayments.feature.onboarding.data"
+            )
+            object Domain : AbstractModule(
+                path = ":feature:onboarding:domain",
+                namespace = "ru.maksonic.easypayments.feature.onboarding.domain"
+            )
+            object Ui : AbstractModule(
+                path = ":feature:onboarding:ui",
+                namespace = "ru.maksonic.easypayments.feature.onboarding.ui"
+            )
+        }
 
         object Payments : AbstractModule(
             path = ":feature:payments",

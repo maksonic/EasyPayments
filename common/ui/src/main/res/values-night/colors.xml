@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="background">@color/dark_gunmetal</color>
+    <color name="on_background">@color/gray_bright</color>
+    <color name="primary">@color/blue_vista</color>
+    <color name="on_primary">@color/gray_bright</color>
+    <color name="primary_container">@color/jet</color>
+    <color name="on_primary_container">@color/blue_persian_60</color>
+    <color name="surface">@color/nero</color>
+    <color name="outline">@color/silver_foil</color>
+</resources>

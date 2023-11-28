@@ -43,7 +43,7 @@ android {
 
 dependencies {
     implementation(project(ModuleInfo.Navigation.Router.path))
-    implementation(project(ModuleInfo.Feature.Onboarding.path))
+    implementation(project(ModuleInfo.Feature.Onboarding.Ui.path))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
