@@ -48,6 +48,7 @@ android {
 dependencies {
     implementation(project(ModuleInfo.Common.Core.path))
     implementation(project(ModuleInfo.Common.Ui.path))
+    implementation(project(ModuleInfo.Navigation.Router.path))
     implementation(project(ModuleInfo.Feature.Onboarding.Domain.path))
     implementation(libs.appcompat)
     implementation(libs.glide)

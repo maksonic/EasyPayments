@@ -6,4 +6,19 @@
         <item name="rippleColor">@color/on_primary_container</item>
         <item name="android:textColor">@color/on_primary</item>
     </style>
+
+    <style name="EasyPay.TextField.Primary" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/text_field_corner_radius_circle</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/text_field_corner_radius_circle</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/text_field_corner_radius_circle</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/text_field_corner_radius_circle</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="cursorErrorColor">@color/error</item>
+        <item name="colorError">@color/error</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="passwordToggleTint">@color/outline</item>
+        <item name="hintTextColor">@color/on_background</item>
+        <item name="expandedHintEnabled">false</item>
+    </style>
 </resources>

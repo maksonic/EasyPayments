@@ -8,6 +8,8 @@ import ru.maksonic.easypayments.di.appModule
 import ru.maksonic.easypayments.feature.onboarding.data.di.onboardingDataModule
 import ru.maksonic.easypayments.feature.onboarding.data.local.di.onboardingLocalDataModule
 import ru.maksonic.easypayments.feature.onboarding.ui.di.onboardingUiModule
+import ru.maksonic.easypayments.feature.ui.di.authUiFeatureModule
+import ru.maksonic.easypayments.navigation.graph.di.navigationModule
 
 /**
  * @Author maksonic on 27.11.2023
@@ -15,9 +17,11 @@ import ru.maksonic.easypayments.feature.onboarding.ui.di.onboardingUiModule
 class EasyPaymentApp : Application() {
     private val modules = listOf(
         appModule,
+        navigationModule,
         onboardingLocalDataModule,
         onboardingDataModule,
-        onboardingUiModule
+        onboardingUiModule,
+        authUiFeatureModule
     )
 
     override fun onCreate() {

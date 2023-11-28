@@ -11,28 +11,47 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.maksonic.easypayments.common.ui.BaseScreen
 import ru.maksonic.easypayments.feature.onboarding.ui.adapter.OnboardingAdapter
+import ru.maksonic.easypayments.feature.onboarding.ui.core.Eff
+import ru.maksonic.easypayments.feature.onboarding.ui.core.Model
+import ru.maksonic.easypayments.feature.onboarding.ui.core.Msg
 import ru.maksonic.easypayments.feature.onboarding.ui.core.OnboardingSandbox
 import ru.maksonic.easypayments.feature.onboarding.ui.databinding.ScreenOnboardingBinding
+import ru.maksonic.easypayments.navigation.router.Router
 
 /**
  * @Author maksonic on 27.11.2023
  */
-class OnboardingScreen : BaseScreen<ScreenOnboardingBinding>() {
+class OnboardingScreen : BaseScreen<ScreenOnboardingBinding, Model, Eff>() {
     override val initBinding: (LayoutInflater, ViewGroup?, Boolean) -> ScreenOnboardingBinding
         get() = ScreenOnboardingBinding::inflate
 
     private val sandbox: OnboardingSandbox by viewModel()
     private val imageLoader: RequestManager by inject()
+    private val router: Router by inject()
     private val onboardingAdapter: OnboardingAdapter by lazy(::initOnboardingAdapter)
 
     override fun render(savedInstanceState: Bundle?) {
         initViewPager()
+        listenCurrentPageChange()
+
         binding.btnNext.setOnClickListener {
-            binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1, true)
+            sandbox.send(Msg.Ui.OnBtnNextClicked)
         }
 
-        sandbox.model.render { model ->
-            onboardingAdapter.submitList(model.onboardings)
+        sandbox.model.render()
+        sandbox.effects.handle()
+    }
+
+    override fun renderModel(model: Model) {
+        onboardingAdapter.submitList(model.onboardings)
+    }
+
+    override fun handleEffects(eff: Eff) = when (eff) {
+        is Eff.ScrollToNextPage -> {
+            binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1, true)
+        }
+        is Eff.NavigateToAuth -> {
+            router.navigateFromOnboardingToAuth(this@OnboardingScreen)
         }
     }
 
@@ -47,4 +66,13 @@ class OnboardingScreen : BaseScreen<ScreenOnboardingBinding>() {
 
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
     }
+
+    private fun listenCurrentPageChange() = binding.viewPager.registerOnPageChangeCallback(
+        object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                sandbox.send(Msg.Inner.UpdatedCurrentPage(position))
+                super.onPageSelected(position)
+            }
+        }
+    )
 }

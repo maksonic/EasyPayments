@@ -7,13 +7,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.maksonic.easypayments.ResourceProviderCore
+import ru.maksonic.easypayments.common.ui.ResourceProvider
 
 /**
  * @Author maksonic on 27.11.2023
  */
 val appModule = module {
     single<RequestManager> { provideGlide(androidContext()) }
+    single<ResourceProvider> { ResourceProviderCore(androidContext()) }
 }
 
 private fun provideGlide(context: Context) = Glide.with(context)
-    .setDefaultRequestOptions(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+    .setDefaultRequestOptions(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))

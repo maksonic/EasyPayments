@@ -13,7 +13,40 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
     subscriptions = listOf(program)
 ) {
     override fun update(msg: Msg, model: Model): Update = when (msg) {
-       is
+        is Msg.Ui.OnAuthBtnClicked -> onAuthBtnClicked(model)
+        is Msg.Inner.UpdatedEmailInput -> updatedEmailInput(model, msg)
+        is Msg.Inner.UpdatedPasswordInput -> updatedPasswordInput(model, msg)
+        is Msg.Inner.AuthResult -> ElmUpdate(model)
+        is Msg.Inner.InputsVerificationResult -> inputsVerificationResult(model, msg)
     }
 
+    private fun onAuthBtnClicked(model: Model): Update =
+        ElmUpdate(model, commands = setOf(Cmd.VerifyInputs(model.email, model.password)))
+
+    private fun updatedEmailInput(model: Model, msg: Msg.Inner.UpdatedEmailInput): Update {
+        val isNotIdle = !model.emailState.isIdle && model.email != msg.value
+        val emailState = if (isNotIdle) VerificationEmailState.Idle else model.emailState
+
+        return ElmUpdate(model.copy(email = msg.value, emailState = emailState))
+    }
+
+    private fun updatedPasswordInput(model: Model, msg: Msg.Inner.UpdatedPasswordInput): Update {
+        val isNotIdle = !model.passwordState.isIdle && model.password != msg.value
+        val passwordState = if (isNotIdle) VerificationPasswordState.Idle else model.passwordState
+
+        return ElmUpdate(model.copy(password = msg.value, passwordState = passwordState))
+    }
+
+    private fun inputsVerificationResult(
+        model: Model,
+        msg: Msg.Inner.InputsVerificationResult
+    ): Update {
+        val isValid = msg.emailState.isValid && msg.passwordState.isValid
+        val authCmd = if (isValid) setOf(Cmd.StartAuth(model.email, model.password)) else emptySet()
+
+        return ElmUpdate(
+            model = model.copy(emailState = msg.emailState, passwordState = msg.passwordState),
+            commands = authCmd
+        )
+    }
 }

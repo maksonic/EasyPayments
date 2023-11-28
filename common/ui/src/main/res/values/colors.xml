@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="nero">#FF212121</color>
     <color name="jet">#FF343434</color>
+    <color name="error_light">#FFB3261E</color>
     <color name="gray_taupe">#FF898989</color>
     <color name="silver_foil">#FFAEAEAE</color>
     <color name="dark_gunmetal">#FF1B1D2D</color>
@@ -23,4 +24,5 @@
     <color name="on_primary">@color/white</color>
     <color name="surface">@color/white</color>
     <color name="outline">@color/gray_taupe</color>
+    <color name="error">@color/error_light</color>
 </resources>

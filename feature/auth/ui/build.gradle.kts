@@ -34,6 +34,10 @@ android {
         jvmTarget = AndroidConfig.JVM_TARGET
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

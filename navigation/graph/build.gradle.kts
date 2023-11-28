@@ -44,7 +44,10 @@ android {
 dependencies {
     implementation(project(ModuleInfo.Navigation.Router.path))
     implementation(project(ModuleInfo.Feature.Onboarding.Ui.path))
+    implementation(project(ModuleInfo.Feature.Auth.Ui.path))
+    implementation(project(ModuleInfo.Feature.Payments.path))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.koin.android)
 }

@@ -6,5 +6,13 @@
     <fragment
         android:id="@+id/onboardingScreen"
         android:name="ru.maksonic.easypayments.feature.onboarding.ui.OnboardingScreen"
-        android:label="OnboardingScreen" />
+        android:label="OnboardingScreen" >
+        <action
+            android:id="@+id/action_onboardingScreen_to_authScreen"
+            app:destination="@id/authScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/authScreen"
+        android:name="ru.maksonic.easypayments.feature.ui.AuthScreen"
+        android:label="AuthScreen" />
 </navigation>

@@ -48,6 +48,7 @@ android {
 }
 
 dependencies {
+    implementation(project(ModuleInfo.Common.Core.path))
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.navigation.fragment)

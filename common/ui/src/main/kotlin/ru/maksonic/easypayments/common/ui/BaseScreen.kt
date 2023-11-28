@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 /**
  * @Author maksonic on 27.11.2023
  */
-abstract class BaseScreen<VB : ViewBinding> : Fragment() {
+abstract class BaseScreen<VB : ViewBinding, T : Any, E : Any> : Fragment() {
     private var _binding: VB? = null
     abstract val initBinding: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
@@ -43,22 +44,39 @@ abstract class BaseScreen<VB : ViewBinding> : Fragment() {
 
     private fun applySystemBarsInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val isIme = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
+            val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            val defaultInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            view.updatePadding(top = insets.top, bottom = insets.bottom)
+            if (isIme) {
+                view.updatePadding(bottom = imeInsets.bottom)
+            } else {
+                view.updatePadding(top = defaultInsets.top, bottom = defaultInsets.bottom)
+            }
             WindowInsetsCompat.CONSUMED
         }
     }
 
     abstract fun render(savedInstanceState: Bundle?)
 
-    protected inline fun <T> StateFlow<T>.render(crossinline onModel: (T) -> Unit) {
+    protected fun StateFlow<T>.render() {
         lifecycleScope.launch {
             this@render.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect { model ->
-                onModel(model)
+                renderModel(model)
             }
         }
     }
+
+    protected fun Flow<E>.handle() {
+        lifecycleScope.launch {
+            this@handle.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect { eff ->
+                handleEffects(eff)
+            }
+        }
+    }
+
+    protected open fun renderModel(model: T) {}
+    protected open fun handleEffects(eff: E) {}
 
     override fun onDestroyView() {
         _binding = null
