@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/onboardingScreen">
+    app:startDestination="@id/onboardingScreen"
+    android:id="@+id/navContainer">
     <fragment
         android:id="@+id/onboardingScreen"
         android:name="ru.maksonic.easypayments.feature.onboarding.ui.OnboardingScreen"
         android:label="OnboardingScreen" >
         <action
             android:id="@+id/action_onboardingScreen_to_authScreen"
-            app:destination="@id/authScreen" />
+            app:destination="@id/authScreen"
+            app:popUpTo="@id/onboardingScreen"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/authScreen"
         android:name="ru.maksonic.easypayments.feature.ui.AuthScreen"
-        android:label="AuthScreen" />
+        android:label="AuthScreen" >
+        <action
+            android:id="@+id/action_authScreen_to_paymentsScreen"
+            app:popUpTo="@id/navContainer"
+            app:popUpToInclusive="true"
+            app:destination="@id/paymentsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentsScreen"
+        android:name="ru.maksonic.easypayments.feature.payments.PaymentsScreen"
+        android:label="PaymentsScreen" />
 </navigation>

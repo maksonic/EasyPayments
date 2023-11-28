@@ -48,6 +48,8 @@ android {
 dependencies {
     implementation(project(ModuleInfo.Common.Core.path))
     implementation(project(ModuleInfo.Common.Ui.path))
+    implementation(project(ModuleInfo.Navigation.Router.path))
+    implementation(project(ModuleInfo.Feature.Auth.Domain.path))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.koin.android)

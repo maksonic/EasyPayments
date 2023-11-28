@@ -10,17 +10,19 @@ import ru.maksonic.easypayments.common.core.elm.ElmModel
  */
 
 data class Model(
-    val email: String,
+    val isVisibleLoader: Boolean,
+    val username: String,
     val password: String,
-    val emailState: VerificationEmailState,
+    val usernameState: VerificationUsernameState,
     val passwordState: VerificationPasswordState,
 
     ) : ElmModel {
     companion object {
         val Initial = Model(
-            email = "",
+            isVisibleLoader = false,
+            username = "",
             password = "",
-            emailState = VerificationEmailState.Idle,
+            usernameState = VerificationUsernameState.Idle,
             passwordState = VerificationPasswordState.Idle
         )
     }
@@ -32,19 +34,26 @@ sealed class Msg : ElmMessage {
     }
 
     sealed class Inner : Msg() {
-        data class UpdatedEmailInput(val value: String) : Inner()
+        data class UpdatedUsernameInput(val value: String) : Inner()
         data class UpdatedPasswordInput(val value: String) : Inner()
         data class AuthResult(val string: String) : Inner()
         data class InputsVerificationResult(
-            val emailState: VerificationEmailState,
+            val usernameState: VerificationUsernameState,
             val passwordState: VerificationPasswordState
         ) : Inner()
+
+        data object FetchedValidTokenStatus : Inner()
+        data class FetchedInvalidTokenStatus(val cause: String) : Inner()
     }
 }
 
 sealed class Cmd : ElmCommand {
-    data class StartAuth(val email: String, val password: String) : Cmd()
-    data class VerifyInputs(val email: String, val password: String) : Cmd()
+    data class StartAuth(val username: String, val password: String) : Cmd()
+    data class VerifyInputs(val username: String, val password: String) : Cmd()
 }
 
-sealed class Eff : ElmEffect
+sealed class Eff : ElmEffect {
+    data object HideKeyboard : Eff()
+    data object NavigateToPayments : Eff()
+    data class ShowTokenFailToast(val message: String) : Eff()
+}

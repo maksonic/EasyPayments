@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hint_email">Введите Email:</string>
+    <string name="hint_username">Введите имя:</string>
     <string name="hint_password">Введите пароль:</string>
     <string name="btn_title_auth">Войти</string>
     <string name="header_auth">Авторизация</string>
 
-    <string name="error_empty_email">Email не может быть пустым.</string>
-    <string name="error_invalid_email">Некорректный Email.</string>
+    <string name="error_empty_username">Имя пользователя не может быть пустым.</string>
+    <string name="error_invalid_username">Пользователь с данным именем не найден.</string>
     <string name="error_empty_password">Пароль не может быть пустым.</string>
-    <string name="error_invalid_length_password">Пароль должен быть миниум 8 символов.</string>
+    <string name="error_invalid_password">Неправильный пароль.</string>
+    <string name="error_invalid_length_password">Пароль должен быть не менее 4-х символов.</string>
+    <string name="error_invalid_token">Ошибка токена.</string>
 </resources>

@@ -64,6 +64,7 @@ dependencies {
     implementation(project(ModuleInfo.Feature.Payments.path))
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
+    implementation(libs.datastore)
     implementation(libs.glide)
     implementation(libs.material)
     implementation(libs.navigation.fragment)

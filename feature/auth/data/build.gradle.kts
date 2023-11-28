@@ -40,3 +40,15 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation ("com.squareup.okhttp3:logging-interceptor:3.8.0")
+    implementation(project(ModuleInfo.Common.Core.path))
+    implementation(project(ModuleInfo.Feature.Auth.Domain.path))
+    implementation(libs.appcompat)
+    implementation(libs.gson)
+    implementation(libs.material)
+    implementation(libs.koin.android)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+}

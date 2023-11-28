@@ -9,6 +9,6 @@ import ru.maksonic.easypayments.feature.ui.core.AuthSandbox
  * @Author maksonic on 28.11.2023
  */
 val authUiFeatureModule = module {
-    factory { AuthProgram(resourceProvider = get()) }
+    factory { AuthProgram(repository = get(), resourceProvider = get()) }
     viewModel { AuthSandbox(program = get()) }
 }

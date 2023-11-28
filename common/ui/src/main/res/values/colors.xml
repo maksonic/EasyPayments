@@ -8,9 +8,11 @@
     <color name="silver_foil">#FFAEAEAE</color>
     <color name="dark_gunmetal">#FF1B1D2D</color>
     <color name="blue_persian_60">#3E1733C7</color>
-    <color name="blue_vista">#FF8A98E1</color>
     <color name="blue_brand">#FF1733C7</color>
-    <color name="green_sea_foam">#BE7D8BD6</color>
+    <color name="blue_vista_75">#BE7D8BD6</color>
+    <color name="blue_vista">#FF8A98E1</color>
+    <color name="blue_lavender">#FFD0D7FB</color>
+    <color name="blue_alice">#FFECEFFF</color>
     <color name="anti_flash_white">#FFEEF1F9</color>
     <color name="gray_bright">#FFECECEC</color>
     <color name="white">#FFFFFFFF</color>
@@ -20,9 +22,11 @@
     <color name="on_background">@color/nero</color>
     <color name="primary">@color/blue_brand</color>
     <color name="primary_container">@color/white</color>
-    <color name="on_primary_container">@color/green_sea_foam</color>
+    <color name="on_primary_container">@color/blue_lavender</color>
     <color name="on_primary">@color/white</color>
+    <color name="secondary_container">@color/blue_alice</color>
     <color name="surface">@color/white</color>
     <color name="outline">@color/gray_taupe</color>
     <color name="error">@color/error_light</color>
+    <color name="scrim">#24000000</color>
 </resources>

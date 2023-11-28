@@ -1,45 +1,55 @@
 package ru.maksonic.easypayments.feature.ui.core
 
-import android.util.Patterns
+import kotlinx.coroutines.delay
 import ru.maksonic.easypayments.common.core.elm.ElmProgram
 import ru.maksonic.easypayments.common.ui.ResourceProvider
 import ru.maksonic.easypayments.feature.auth.ui.R
+import ru.maksonic.easypayments.feature.domain.AuthRepository
+import ru.maksonic.easypayments.feature.domain.TokenStatus
 
 /**
  * @Author maksonic on 28.11.2023
  */
-private const val MIN_PASSWORD_LENGTH = 8
+private const val MIN_PASSWORD_LENGTH = 4
 
 
 class AuthProgram(
+    private val repository: AuthRepository,
     private val resourceProvider: ResourceProvider
 ) : ElmProgram<Msg, Cmd> {
+    private companion object {
+        private const val MOCK_NAME = "demo"
+        private const val MOCK_PASSWORD = "12345"
+    }
+
     override suspend fun executeProgram(cmd: Cmd, consumer: (Msg) -> Unit) {
         when (cmd) {
-            is Cmd.StartAuth -> startAuth(cmd.email, cmd.password, consumer)
-            is Cmd.VerifyInputs -> verifyInputs(cmd.email, cmd.password, consumer)
+            is Cmd.StartAuth -> startAuth(cmd.username, cmd.password, consumer)
+            is Cmd.VerifyInputs -> verifyInputs(cmd.username, cmd.password, consumer)
         }
     }
 
     private fun verifyInputs(email: String, password: String, consumer: (Msg) -> Unit) {
-        val emailState = verifyEmail(email)
+        val emailState = verifyUsername(email)
         val passwordState = verifyPassword(password)
 
         consumer(Msg.Inner.InputsVerificationResult(emailState, passwordState))
     }
 
-    private fun verifyEmail(email: String): VerificationEmailState = when {
-        email.isBlank() -> {
-            VerificationEmailState.Empty(resourceProvider.getString(R.string.error_empty_email))
-        }
-
-        !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-            VerificationEmailState.Invalid(
-                resourceProvider.getString(R.string.error_invalid_email)
+    private fun verifyUsername(name: String): VerificationUsernameState = when {
+        name.isBlank() -> {
+            VerificationUsernameState.Empty(
+                resourceProvider.getString(R.string.error_empty_username)
             )
         }
 
-        else -> VerificationEmailState.Valid
+        name != MOCK_NAME -> {
+            VerificationUsernameState.Invalid(
+                resourceProvider.getString(R.string.error_invalid_username)
+            )
+        }
+
+        else -> VerificationUsernameState.Valid
     }
 
     private fun verifyPassword(password: String): VerificationPasswordState = when {
@@ -55,10 +65,31 @@ class AuthProgram(
             )
         }
 
+        password != MOCK_PASSWORD -> {
+            VerificationPasswordState.InvalidLength(
+                resourceProvider.getString(R.string.error_invalid_password)
+            )
+        }
+
         else -> VerificationPasswordState.Valid
     }
 
-    private fun startAuth(email: String, password: String, consumer: (Msg) -> Unit) {
+    private suspend fun startAuth(name: String, password: String, consumer: (Msg) -> Unit) {
+        delay(2000)
+        repository.authWithNameAndPassword(name, password)
+            .onSuccess { status ->
+                when (status) {
+                    is TokenStatus.Valid -> {
+                        consumer(Msg.Inner.FetchedValidTokenStatus)
+                    }
 
+                    is TokenStatus.Invalid -> {
+                        consumer(Msg.Inner.FetchedInvalidTokenStatus(status.cause))
+                    }
+                }
+            }.onFailure {
+                val failInfo = resourceProvider.getString(R.string.error_invalid_token)
+                consumer(Msg.Inner.FetchedInvalidTokenStatus(it.localizedMessage ?: failInfo))
+            }
     }
 }

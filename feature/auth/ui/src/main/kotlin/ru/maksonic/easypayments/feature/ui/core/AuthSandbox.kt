@@ -14,20 +14,22 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
 ) {
     override fun update(msg: Msg, model: Model): Update = when (msg) {
         is Msg.Ui.OnAuthBtnClicked -> onAuthBtnClicked(model)
-        is Msg.Inner.UpdatedEmailInput -> updatedEmailInput(model, msg)
+        is Msg.Inner.UpdatedUsernameInput -> updatedUsernameInput(model, msg)
         is Msg.Inner.UpdatedPasswordInput -> updatedPasswordInput(model, msg)
         is Msg.Inner.AuthResult -> ElmUpdate(model)
         is Msg.Inner.InputsVerificationResult -> inputsVerificationResult(model, msg)
+        is Msg.Inner.FetchedValidTokenStatus -> fetchedValidToken(model)
+        is Msg.Inner.FetchedInvalidTokenStatus -> fetchedInvalidToken(model, msg)
     }
 
     private fun onAuthBtnClicked(model: Model): Update =
-        ElmUpdate(model, commands = setOf(Cmd.VerifyInputs(model.email, model.password)))
+        ElmUpdate(model, commands = setOf(Cmd.VerifyInputs(model.username, model.password)))
 
-    private fun updatedEmailInput(model: Model, msg: Msg.Inner.UpdatedEmailInput): Update {
-        val isNotIdle = !model.emailState.isIdle && model.email != msg.value
-        val emailState = if (isNotIdle) VerificationEmailState.Idle else model.emailState
+    private fun updatedUsernameInput(model: Model, msg: Msg.Inner.UpdatedUsernameInput): Update {
+        val isNotIdle = !model.usernameState.isIdle && model.username != msg.value
+        val emailState = if (isNotIdle) VerificationUsernameState.Idle else model.usernameState
 
-        return ElmUpdate(model.copy(email = msg.value, emailState = emailState))
+        return ElmUpdate(model.copy(username = msg.value, usernameState = emailState))
     }
 
     private fun updatedPasswordInput(model: Model, msg: Msg.Inner.UpdatedPasswordInput): Update {
@@ -41,12 +43,31 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         model: Model,
         msg: Msg.Inner.InputsVerificationResult
     ): Update {
-        val isValid = msg.emailState.isValid && msg.passwordState.isValid
-        val authCmd = if (isValid) setOf(Cmd.StartAuth(model.email, model.password)) else emptySet()
+        val isValid = msg.usernameState.isValid && msg.passwordState.isValid
+        val authCmd =
+            if (isValid) setOf(Cmd.StartAuth(model.username, model.password)) else emptySet()
+
+        val keyboardEffect = if (isValid) setOf(Eff.HideKeyboard) else emptySet()
 
         return ElmUpdate(
-            model = model.copy(emailState = msg.emailState, passwordState = msg.passwordState),
-            commands = authCmd
+            model = model.copy(
+                isVisibleLoader = isValid,
+                usernameState = msg.usernameState,
+                passwordState = msg.passwordState
+            ),
+            commands = authCmd,
+            effects = keyboardEffect
         )
     }
+
+    private fun fetchedValidToken(model: Model): Update =
+        ElmUpdate(model.copy(isVisibleLoader = false), effects = setOf(Eff.NavigateToPayments))
+
+    private fun fetchedInvalidToken(
+        model: Model,
+        msg: Msg.Inner.FetchedInvalidTokenStatus
+    ): Update = ElmUpdate(
+        model = model.copy(isVisibleLoader = false),
+        effects = setOf(Eff.ShowTokenFailToast(msg.cause))
+    )
 }

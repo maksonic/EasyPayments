@@ -12,6 +12,10 @@ class AppNavigator : AbstractNavigator(), Router {
     override fun navigateFromOnboardingToAuth(fragment: Fragment) =
         fragment.navigate(actionId = R.id.action_onboardingScreen_to_authScreen)
 
+    override fun navigateFromAuthToPayments(fragment: Fragment) {
+        fragment.navigate(R.id.action_authScreen_to_paymentsScreen)
+    }
+
     override fun onBack(fragment: Fragment): Unit = fragment.requireActivity().onBackPressed()
 }
 
