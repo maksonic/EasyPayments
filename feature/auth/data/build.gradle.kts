@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = ModuleInfo.Feature.Auth.Core.namespace
+    namespace = ModuleInfo.Feature.Auth.Data.namespace
     compileSdk = AndroidConfig.COMPILE_SDK
 
     defaultConfig {

@@ -44,6 +44,7 @@ android {
         }
     }
 }
+
 dependencies {
     implementation(project(ModuleInfo.Common.Core.path))
     implementation(project(ModuleInfo.Common.Ui.path))

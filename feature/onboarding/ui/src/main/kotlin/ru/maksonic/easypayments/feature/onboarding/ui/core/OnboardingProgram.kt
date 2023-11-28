@@ -6,7 +6,7 @@ import ru.maksonic.easypayments.feature.onboarding.domain.OnboardingRepository
 /**
  * @Author maksonic on 27.11.2023
  */
-class OnboardingDataProgram(
+class OnboardingProgram(
     private val repository: OnboardingRepository
 ) : ElmProgram<Msg, Cmd> {
     override suspend fun executeProgram(cmd: Cmd, consumer: (Msg) -> Unit) {

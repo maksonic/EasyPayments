@@ -8,12 +8,10 @@ import ru.maksonic.easypayments.common.core.elm.Sandbox
  */
 private typealias Update = ElmUpdate<Model, Set<Cmd>, Set<Eff>>
 
-class OnboardingSandbox(
-    onboardingCommandHandler: OnboardingDataProgram
-) : Sandbox<Model, Msg, Cmd, Eff>(
+class OnboardingSandbox(program: OnboardingProgram) : Sandbox<Model, Msg, Cmd, Eff>(
     initialModel = Model.Initial,
     initialCmd = setOf(Cmd.FetchOnboardings),
-    subscriptions = listOf(onboardingCommandHandler)
+    subscriptions = listOf(program)
 ) {
     override fun update(msg: Msg, model: Model): Update = when (msg) {
         is Msg.Ui.OnBtnNextClicked -> onNextBtnClicked(model)

@@ -40,3 +40,11 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(ModuleInfo.Common.Core.path))
+    implementation(project(ModuleInfo.Common.Ui.path))
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.koin.android)
+}
