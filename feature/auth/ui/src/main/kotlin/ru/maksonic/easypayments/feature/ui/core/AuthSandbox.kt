@@ -20,6 +20,7 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         is Msg.Inner.InputsVerificationResult -> inputsVerificationResult(model, msg)
         is Msg.Inner.FetchedValidTokenStatus -> fetchedValidToken(model)
         is Msg.Inner.FetchedInvalidTokenStatus -> fetchedInvalidToken(model, msg)
+        is Msg.Ui.OnSkipAuthBtnClicked -> onSkipAuthBtnClicked(model)
     }
 
     private fun onAuthBtnClicked(model: Model): Update = ElmUpdate(
@@ -69,4 +70,7 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         model = model.copy(isVisibleLoader = false),
         effects = setOf(Eff.ShowTokenFailToast(msg.cause))
     )
+
+    private fun onSkipAuthBtnClicked(model: Model): Update =
+        ElmUpdate(model, effects = setOf(Eff.NavigateToPayments))
 }

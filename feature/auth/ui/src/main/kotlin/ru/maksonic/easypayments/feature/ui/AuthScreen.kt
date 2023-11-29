@@ -38,6 +38,7 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
 
     override fun render(savedInstanceState: Bundle?) {
         initInputFields()
+        initMenu()
 
         binding.btnAuth.setOnClickListener {
             sandbox.send(Msg.Ui.OnAuthBtnClicked)
@@ -135,6 +136,19 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
             val progress = loaderDialog.findViewById<ProgressBar>(R.id.progress)
             successLoader?.visibility = View.VISIBLE
             progress?.visibility = View.GONE
+        }
+    }
+
+    private fun initMenu() {
+        binding.topBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.skip_auth -> {
+                    sandbox.send(Msg.Ui.OnSkipAuthBtnClicked)
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }

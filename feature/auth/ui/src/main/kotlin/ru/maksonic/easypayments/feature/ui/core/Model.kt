@@ -30,6 +30,7 @@ data class Model(
 sealed class Msg : ElmMessage {
     sealed class Ui : Msg() {
         data object OnAuthBtnClicked : Ui()
+        data object OnSkipAuthBtnClicked : Ui()
     }
 
     sealed class Inner : Msg() {

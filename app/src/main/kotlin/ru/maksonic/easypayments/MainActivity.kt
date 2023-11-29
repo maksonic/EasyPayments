@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             val defaultInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
             if (isIme) {
-                view.updatePadding(top = imeInsets.top, bottom = imeInsets.bottom)
+                view.updatePadding(top = defaultInsets.top, bottom = imeInsets.bottom)
             } else {
                 view.updatePadding(top = defaultInsets.top, bottom = defaultInsets.bottom)
             }
