@@ -14,10 +14,10 @@ class AuthRepositoryCore(
     private val tokenStore: TokenStore
 ) : AuthRepository {
     override suspend fun authWithNameAndPassword(
-        email: String,
+        name: String,
         password: String
     ): Result<TokenStatus> = runCatching {
-        apiService.authWithUsernameAndPassword(AuthCredentials(email, password))
+        apiService.authWithUsernameAndPassword(AuthCredentials(name, password))
     }.fold(
         onSuccess = {
             if (!it.response.token.isNullOrBlank()) {

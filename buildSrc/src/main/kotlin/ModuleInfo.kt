@@ -76,5 +76,10 @@ object ModuleInfo {
             path = ":feature:payments",
             namespace = "ru.maksonic.easypayments.feature.payments"
         )
+
+        object Settings : AbstractModule(
+            path = ":feature:settings",
+            namespace = "ru.maksonic.easypayments.feature.settings"
+        )
     }
 }

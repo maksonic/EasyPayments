@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = ModuleInfo.Navigation.Graph.namespace
+    namespace = ModuleInfo.Feature.Payments.namespace
     compileSdk = AndroidConfig.COMPILE_SDK
 
     defaultConfig {
@@ -34,6 +34,10 @@ android {
         jvmTarget = AndroidConfig.JVM_TARGET
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -42,13 +46,10 @@ android {
 }
 
 dependencies {
+    implementation(project(ModuleInfo.Common.Core.path))
+    implementation(project(ModuleInfo.Common.Ui.path))
     implementation(project(ModuleInfo.Navigation.Router.path))
-    implementation(project(ModuleInfo.Feature.Onboarding.Ui.path))
-    implementation(project(ModuleInfo.Feature.Auth.Ui.path))
-    implementation(project(ModuleInfo.Feature.Payments.path))
-    implementation(project(ModuleInfo.Feature.Settings.path))
-    implementation(libs.core.ktx)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    implementation(libs.appcompat)
+    implementation(libs.material)
     implementation(libs.koin.android)
 }

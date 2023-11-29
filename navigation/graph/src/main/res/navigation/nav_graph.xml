@@ -30,5 +30,17 @@
     <fragment
         android:id="@+id/paymentsScreen"
         android:name="ru.maksonic.easypayments.feature.payments.PaymentsScreen"
-        android:label="PaymentsScreen" />
+        android:label="PaymentsScreen" >
+        <action
+            android:id="@+id/action_paymentsScreen_to_settingsScreen"
+            app:destination="@id/settingsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsScreen"
+        android:name="ru.maksonic.easypayments.feature.settings.SettingsScreen"
+        android:label="SettingsScreen" >
+        <action
+            android:id="@+id/action_settingsScreen_to_authScreen"
+            app:destination="@id/authScreen" />
+    </fragment>
 </navigation>
