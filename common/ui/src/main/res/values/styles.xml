@@ -21,4 +21,16 @@
         <item name="hintTextColor">@color/on_background</item>
         <item name="expandedHintEnabled">false</item>
     </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/on_background</item>
+    </style>
+
+    <style name="EasyPay.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:textColor">@color/on_background</item>
+        <item name="colorOnSurface">@color/background</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+    </style>
 </resources>

@@ -6,4 +6,8 @@
     <string name="msg_success_log_out">Вы вышли из аккаунта \"demo\".</string>
     <string name="error_log_out">Произошла ошибка. Повторите ещё раз.</string>
     <string name="error_token_status">Ошибка в получении статуса авторизации.</string>
+    <string name="dialog_title_log_out">Внимание</string>
+    <string name="dialog_body_log_out">Вы точно хотите выйти из аккаунта?</string>
+    <string name="dialog_btn_title_log_out_accept">Выйти</string>
+    <string name="dialog_btn_title_log_out_decline">Отмена</string>
 </resources>

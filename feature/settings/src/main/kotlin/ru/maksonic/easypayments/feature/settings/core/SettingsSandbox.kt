@@ -15,18 +15,23 @@ class SettingsSandbox(program: SettingsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
 ) {
     override fun update(msg: Msg, model: Model): Update = when (msg) {
         is Msg.Ui.OnTopBarBackClicked -> onTopBarBackClicked(model)
+        is Msg.Ui.OnShowLogOutDialogClicked -> onShowLogOutDialogClicked(model)
         is Msg.Ui.OnLogOutClicked -> onLogOutClicked(model)
         is Msg.Inner.FetchedTokenStatus -> fetchedTokenStatus(model, msg)
         is Msg.Inner.SuccessfulLogOut -> successfulLogOut(model)
         is Msg.Inner.ShowedLogOutError -> showedLogOutError(model, msg)
         is Msg.Ui.OnAuthClicked -> onAuthClicked(model)
+        is Msg.Ui.OnDeclineLogOutDialogClicked -> onDeclineLogOutDialogClicked(model)
     }
 
     private fun onTopBarBackClicked(model: Model): Update =
         ElmUpdate(model, effects = setOf(Eff.NavigateBack))
 
+    private fun onShowLogOutDialogClicked(model: Model): Update =
+        ElmUpdate(model.copy(isVisibleLogOutDialog = true))
+
     private fun onLogOutClicked(model: Model): Update =
-        ElmUpdate(model, commands = setOf(Cmd.LogOut))
+        ElmUpdate(model.copy(isVisibleLogOutDialog = false), commands = setOf(Cmd.LogOut))
 
     private fun fetchedTokenStatus(model: Model, msg: Msg.Inner.FetchedTokenStatus): Update =
         ElmUpdate(model.copy(isLogOutBtn = msg.isValid))
@@ -39,4 +44,7 @@ class SettingsSandbox(program: SettingsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
 
     private fun onAuthClicked(model: Model): Update =
         ElmUpdate(model, effects = setOf(Eff.NavigateToAuth))
+
+    private fun onDeclineLogOutDialogClicked(model: Model): Update =
+        ElmUpdate(model.copy(isVisibleLogOutDialog = false))
 }
