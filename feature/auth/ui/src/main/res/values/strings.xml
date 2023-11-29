@@ -8,7 +8,7 @@
     <string name="error_empty_username">Имя пользователя не может быть пустым.</string>
     <string name="error_invalid_username">Пользователь с данным именем не найден.</string>
     <string name="error_empty_password">Пароль не может быть пустым.</string>
-    <string name="error_invalid_password">Неправильный пароль.</string>
+    <string name="error_invalid_password">Неверный пароль.</string>
     <string name="error_invalid_length_password">Пароль должен быть не менее 4-х символов.</string>
     <string name="error_invalid_token">Ошибка токена.</string>
 </resources>
