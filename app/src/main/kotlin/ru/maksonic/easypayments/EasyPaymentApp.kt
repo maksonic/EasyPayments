@@ -11,6 +11,7 @@ import ru.maksonic.easypayments.feature.onboarding.data.di.onboardingDataModule
 import ru.maksonic.easypayments.feature.onboarding.data.local.di.onboardingLocalDataModule
 import ru.maksonic.easypayments.feature.onboarding.ui.di.onboardingUiModule
 import ru.maksonic.easypayments.feature.payments.ui.di.paymentsUiFeatureModule
+import ru.maksonic.easypayments.feature.settings.di.settingsUiFeatureModule
 import ru.maksonic.easypayments.feature.ui.di.authUiFeatureModule
 import ru.maksonic.easypayments.navigation.graph.di.navigationModule
 
@@ -27,7 +28,8 @@ class EasyPaymentApp : Application() {
         authCloudFeatureModule,
         authDataFeatureModule,
         authUiFeatureModule,
-        paymentsUiFeatureModule
+        paymentsUiFeatureModule,
+        settingsUiFeatureModule
     )
 
     override fun onCreate() {

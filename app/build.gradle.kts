@@ -64,6 +64,7 @@ dependencies {
     implementation(project(ModuleInfo.Feature.Payments.Data.path))
     implementation(project(ModuleInfo.Feature.Payments.Domain.path))
     implementation(project(ModuleInfo.Feature.Payments.Ui.path))
+    implementation(project(ModuleInfo.Feature.Settings.path))
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.datastore)
