@@ -20,13 +20,12 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         is Msg.Inner.InputsVerificationResult -> inputsVerificationResult(model, msg)
         is Msg.Inner.FetchedValidTokenStatus -> fetchedValidToken(model)
         is Msg.Inner.FetchedInvalidTokenStatus -> fetchedInvalidToken(model, msg)
-
     }
 
     private fun onAuthBtnClicked(model: Model): Update = ElmUpdate(
-        model = model.copy(isVisibleLoader = true),
+        model = model,
         commands = setOf(Cmd.VerifyInputs(model.username, model.password)),
-        effects = setOf(Eff.HideKeyboard)
+        effects = setOf(Eff.ShowLoaderDialog)
     )
 
     private fun updatedUsernameInput(model: Model, msg: Msg.Inner.UpdatedUsernameInput): Update {
@@ -51,16 +50,13 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         val authCmd =
             if (isValid) setOf(Cmd.StartAuth(model.username, model.password)) else emptySet()
 
-        val keyboardEffect = if (isValid) setOf(Eff.HideKeyboard) else emptySet()
-
         return ElmUpdate(
             model = model.copy(
                 isVisibleLoader = isValid,
                 usernameState = msg.usernameState,
                 passwordState = msg.passwordState
             ),
-            commands = authCmd,
-            effects = keyboardEffect
+            commands = authCmd
         )
     }
 

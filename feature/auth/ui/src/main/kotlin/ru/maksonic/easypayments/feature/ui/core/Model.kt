@@ -52,7 +52,7 @@ sealed class Cmd : ElmCommand {
 }
 
 sealed class Eff : ElmEffect {
-    data object HideKeyboard : Eff()
     data object NavigateToPayments : Eff()
     data class ShowTokenFailToast(val message: String) : Eff()
+    data object ShowLoaderDialog : Eff()
 }

@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -37,23 +34,7 @@ abstract class BaseScreen<VB : ViewBinding, T : Any, E : Any> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        applySystemBarsInsets()
         render(savedInstanceState)
-    }
-
-    private fun applySystemBarsInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val isIme = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
-            val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
-            val defaultInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            if (isIme) {
-                view.updatePadding(top = imeInsets.top, bottom = imeInsets.bottom)
-            } else {
-                view.updatePadding(top = defaultInsets.top, bottom = defaultInsets.bottom)
-            }
-            WindowInsetsCompat.CONSUMED
-        }
     }
 
     abstract fun render(savedInstanceState: Bundle?)

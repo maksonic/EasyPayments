@@ -7,6 +7,7 @@
     <dimen name="padding_32dp">32dp</dimen>
     <dimen name="padding_54dp">54dp</dimen>
     <dimen name="card_corner_radius_dp16">16dp</dimen>
+    <dimen name="loader_corner_radius_dp16">24dp</dimen>
     <dimen name="text_field_corner_radius_circle">50dp</dimen>
     <dimen name="btn_primary_height">64dp</dimen>
 </resources>

@@ -11,7 +11,7 @@ import ru.maksonic.easypayments.feature.domain.TokenStatus
  * @Author maksonic on 28.11.2023
  */
 private const val MIN_PASSWORD_LENGTH = 4
-
+private typealias idlePasswordState = VerificationPasswordState.Idle
 
 class AuthProgram(
     private val repository: AuthRepository,
@@ -41,11 +41,11 @@ class AuthProgram(
             }
 
             !nameState.isValid && passwordState.isValid -> {
-                consumer(Msg.Inner.InputsVerificationResult(nameState, VerificationPasswordState.Idle))
+                consumer(Msg.Inner.InputsVerificationResult(nameState, idlePasswordState))
             }
 
             !nameState.isValid && !passwordState.isValid -> {
-                consumer(Msg.Inner.InputsVerificationResult(nameState, VerificationPasswordState.Idle))
+                consumer(Msg.Inner.InputsVerificationResult(nameState, idlePasswordState))
             }
 
             nameState.isValid && passwordState.isValid -> {

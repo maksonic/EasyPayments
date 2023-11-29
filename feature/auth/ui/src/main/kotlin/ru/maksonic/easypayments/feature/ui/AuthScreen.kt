@@ -1,16 +1,20 @@
 package ru.maksonic.easypayments.feature.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.maksonic.easypayments.common.ui.BaseScreen
-import ru.maksonic.easypayments.common.ui.KeyboardController
 import ru.maksonic.easypayments.common.ui.toastShortTime
+import ru.maksonic.easypayments.feature.auth.ui.R
 import ru.maksonic.easypayments.feature.auth.ui.databinding.ScreenAuthBinding
 import ru.maksonic.easypayments.feature.ui.core.AuthSandbox
 import ru.maksonic.easypayments.feature.ui.core.Eff
@@ -18,8 +22,8 @@ import ru.maksonic.easypayments.feature.ui.core.Model
 import ru.maksonic.easypayments.feature.ui.core.Msg
 import ru.maksonic.easypayments.feature.ui.core.VerificationPasswordState
 import ru.maksonic.easypayments.feature.ui.core.VerificationUsernameState
+import ru.maksonic.easypayments.feature.ui.core.isValid
 import ru.maksonic.easypayments.navigation.router.Router
-
 
 /**
  * @Author maksonic on 28.11.2023
@@ -28,6 +32,7 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
     override val initBinding: (LayoutInflater, ViewGroup?, Boolean) -> ScreenAuthBinding
         get() = ScreenAuthBinding::inflate
 
+    private val loaderDialog: Dialog by lazy(::initLoaderDialog)
     private val sandbox: AuthSandbox by viewModel()
     private val router: Router by inject()
 
@@ -43,23 +48,20 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
     }
 
     override fun renderModel(model: Model) {
-        listenEmailState(model.usernameState)
+        listenUsernameState(model.usernameState)
         listenPasswordState(model.passwordState)
-        listenLoader(model.isVisibleLoader)
+        updatedLoaderDialog(model.usernameState.isValid && model.passwordState.isValid)
     }
 
     override fun handleEffects(eff: Eff) {
         when (eff) {
-            is Eff.HideKeyboard -> {
-                with(binding) {
-                    usernameFieldLayout.clearFocus()
-                    passwordFieldLayout.clearFocus()
-                }
-                (requireActivity() as? KeyboardController)?.hideIme()
+            is Eff.NavigateToPayments -> {
+                router.navigateFromAuthToPayments(this)
+                loaderDialog.dismiss()
             }
 
-            is Eff.NavigateToPayments -> router.navigateFromAuthToPayments(this)
             is Eff.ShowTokenFailToast -> context?.toastShortTime(eff.message)
+            is Eff.ShowLoaderDialog -> loaderDialog.show()
         }
     }
 
@@ -72,17 +74,26 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
         }
     }
 
-    private fun listenEmailState(state: VerificationUsernameState) =
+    private fun initLoaderDialog(): Dialog = Dialog(requireActivity()).apply {
+        window?.setBackgroundDrawableResource(R.drawable.bg_loader)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setCancelable(false)
+        setContentView(R.layout.dialog_loader)
+    }
+
+    private fun listenUsernameState(state: VerificationUsernameState) =
         with(binding.usernameFieldLayout) {
             when (state) {
                 is VerificationUsernameState.Empty -> {
                     isErrorEnabled = true
                     error = state.info
+                    loaderDialog.dismiss()
                 }
 
                 is VerificationUsernameState.Invalid -> {
                     isErrorEnabled = true
                     error = state.info
+                    loaderDialog.dismiss()
                 }
 
                 else -> isErrorEnabled = false
@@ -96,12 +107,14 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
                     endIconMode = TextInputLayout.END_ICON_NONE
                     isErrorEnabled = true
                     error = state.info
+                    loaderDialog.dismiss()
                 }
 
                 is VerificationPasswordState.InvalidLength -> {
                     endIconMode = TextInputLayout.END_ICON_NONE
                     isErrorEnabled = true
                     error = state.info
+                    loaderDialog.dismiss()
                 }
 
                 else -> {
@@ -111,8 +124,12 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
             }
         }
 
-    private fun listenLoader(isVisible: Boolean) {
-        val visibility = if (isVisible) View.VISIBLE else View.GONE
-        binding.loader.visibility = visibility
+    private fun updatedLoaderDialog(isValid: Boolean) {
+        if (isValid) {
+            val successLoader = loaderDialog.findViewById<ImageView>(R.id.successCheckMark)
+            val progress = loaderDialog.findViewById<ProgressBar>(R.id.progress)
+            successLoader?.visibility = View.VISIBLE
+            progress?.visibility = View.GONE
+        }
     }
 }

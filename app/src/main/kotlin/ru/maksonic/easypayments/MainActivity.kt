@@ -1,27 +1,26 @@
 package ru.maksonic.easypayments
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.maksonic.easypayments.common.ui.KeyboardController
-import ru.maksonic.easypayments.databinding.ActivityMainBinding
 import ru.maksonic.easypayments.R.id.navGraphContainer
-import ru.maksonic.easypayments.navigation.graph.R.id.paymentsScreen
+import ru.maksonic.easypayments.databinding.ActivityMainBinding
 import ru.maksonic.easypayments.navigation.graph.R.id.onboardingScreen
+import ru.maksonic.easypayments.navigation.graph.R.id.paymentsScreen
 import ru.maksonic.easypayments.navigation.graph.R.navigation.nav_graph
 
 private const val COLOR_TRANSPARENT = Color.TRANSPARENT
 
-class MainActivity : AppCompatActivity(), KeyboardController {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainActivityViewModel by viewModel()
@@ -38,20 +37,12 @@ class MainActivity : AppCompatActivity(), KeyboardController {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarsInsets()
 
         viewModel.setStartDestinationByTokenStatus(
             onValid = { setStartDestination(paymentsScreen) },
             onInvalid = { setStartDestination(onboardingScreen) }
         )
-    }
-
-    override fun hideIme() {
-        val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = this.currentFocus
-        if (view == null) {
-            view = View(this)
-        }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun initNavController(): NavController {
@@ -63,5 +54,20 @@ class MainActivity : AppCompatActivity(), KeyboardController {
         val inflater = navController.navInflater
         val graph = inflater.inflate(nav_graph).apply { setStartDestination(id) }
         navController.graph = graph
+    }
+
+    private fun applySystemBarsInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val isIme = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
+            val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            val defaultInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            if (isIme) {
+                view.updatePadding(top = imeInsets.top, bottom = imeInsets.bottom)
+            } else {
+                view.updatePadding(top = defaultInsets.top, bottom = defaultInsets.bottom)
+            }
+            WindowInsetsCompat.CONSUMED
+        }
     }
 }

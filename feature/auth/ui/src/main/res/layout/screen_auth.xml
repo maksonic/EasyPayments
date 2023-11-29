@@ -86,28 +86,4 @@
             android:layout_marginBottom="@dimen/padding_24dp"
             android:text="@string/btn_title_auth" />
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/loader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/scrim"
-        android:clickable="true">
-
-        <FrameLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_loader">
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                app:indicatorColor="@color/primary"
-                app:trackCornerRadius="4dp" />
-        </FrameLayout>
-    </FrameLayout>
-
 </FrameLayout>
