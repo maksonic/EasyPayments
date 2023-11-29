@@ -23,9 +23,8 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
     }
 
     private fun onAuthBtnClicked(model: Model): Update = ElmUpdate(
-        model = model,
-        commands = setOf(Cmd.VerifyInputs(model.username, model.password)),
-        effects = setOf(Eff.ShowLoaderDialog)
+        model = model.copy(isVisibleLoader = true),
+        commands = setOf(Cmd.VerifyInputs(model.username, model.password))
     )
 
     private fun updatedUsernameInput(model: Model, msg: Msg.Inner.UpdatedUsernameInput): Update {

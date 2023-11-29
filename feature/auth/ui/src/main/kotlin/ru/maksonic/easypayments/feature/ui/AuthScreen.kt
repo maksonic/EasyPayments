@@ -50,6 +50,7 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
     override fun renderModel(model: Model) {
         listenUsernameState(model.usernameState)
         listenPasswordState(model.passwordState)
+        listenLoaderState(model.isVisibleLoader)
         updatedLoaderDialog(model.usernameState.isValid && model.passwordState.isValid)
     }
 
@@ -61,7 +62,6 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
             }
 
             is Eff.ShowTokenFailToast -> context?.toastShortTime(eff.message)
-            is Eff.ShowLoaderDialog -> loaderDialog.show()
         }
     }
 
@@ -123,6 +123,11 @@ class AuthScreen : BaseScreen<ScreenAuthBinding, Model, Eff>() {
                 }
             }
         }
+
+    private fun listenLoaderState(isVisible: Boolean) {
+        if (isVisible && !loaderDialog.isShowing)
+            loaderDialog.show()
+    }
 
     private fun updatedLoaderDialog(isValid: Boolean) {
         if (isValid) {
