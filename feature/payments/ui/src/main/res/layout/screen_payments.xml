@@ -10,4 +10,7 @@
         android:layout_height="wrap_content"
         app:navigationIconTint="@color/on_background"
         app:navigationIcon="@drawable/ic_settings_round"/>
+
+    <include
+        layout="@layout/placeholder_not_authorized"/>
 </LinearLayout>
