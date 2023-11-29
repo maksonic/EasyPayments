@@ -20,16 +20,20 @@ class AuthSandbox(program: AuthProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         is Msg.Inner.InputsVerificationResult -> inputsVerificationResult(model, msg)
         is Msg.Inner.FetchedValidTokenStatus -> fetchedValidToken(model)
         is Msg.Inner.FetchedInvalidTokenStatus -> fetchedInvalidToken(model, msg)
+
     }
 
-    private fun onAuthBtnClicked(model: Model): Update =
-        ElmUpdate(model, commands = setOf(Cmd.VerifyInputs(model.username, model.password)))
+    private fun onAuthBtnClicked(model: Model): Update = ElmUpdate(
+        model = model.copy(isVisibleLoader = true),
+        commands = setOf(Cmd.VerifyInputs(model.username, model.password)),
+        effects = setOf(Eff.HideKeyboard)
+    )
 
     private fun updatedUsernameInput(model: Model, msg: Msg.Inner.UpdatedUsernameInput): Update {
         val isNotIdle = !model.usernameState.isIdle && model.username != msg.value
-        val emailState = if (isNotIdle) VerificationUsernameState.Idle else model.usernameState
+        val nameState = if (isNotIdle) VerificationUsernameState.Idle else model.usernameState
 
-        return ElmUpdate(model.copy(username = msg.value, usernameState = emailState))
+        return ElmUpdate(model.copy(username = msg.value, usernameState = nameState))
     }
 
     private fun updatedPasswordInput(model: Model, msg: Msg.Inner.UpdatedPasswordInput): Update {

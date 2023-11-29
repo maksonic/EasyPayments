@@ -8,6 +8,7 @@ sealed class VerificationUsernameState(open val info: String = "") {
     data object Valid : VerificationUsernameState()
     data class Empty(override val info: String) : VerificationUsernameState()
     data class Invalid(override val info: String) : VerificationUsernameState()
+    data object OverFlow : VerificationUsernameState()
 }
 
 val VerificationUsernameState.isIdle get() = this == VerificationUsernameState.Idle

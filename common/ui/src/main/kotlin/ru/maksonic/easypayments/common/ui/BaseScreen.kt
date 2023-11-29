@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-
 /**
  * @Author maksonic on 27.11.2023
  */
@@ -49,7 +48,7 @@ abstract class BaseScreen<VB : ViewBinding, T : Any, E : Any> : Fragment() {
             val defaultInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
             if (isIme) {
-                view.updatePadding(bottom = imeInsets.bottom)
+                view.updatePadding(top = imeInsets.top, bottom = imeInsets.bottom)
             } else {
                 view.updatePadding(top = defaultInsets.top, bottom = defaultInsets.bottom)
             }

@@ -20,6 +20,7 @@ class AuthProgram(
     private companion object {
         private const val MOCK_NAME = "demo"
         private const val MOCK_PASSWORD = "12345"
+        private const val MOCK_DELAY = 2000L
     }
 
     override suspend fun executeProgram(cmd: Cmd, consumer: (Msg) -> Unit) {
@@ -29,11 +30,28 @@ class AuthProgram(
         }
     }
 
-    private fun verifyInputs(email: String, password: String, consumer: (Msg) -> Unit) {
-        val emailState = verifyUsername(email)
+    private suspend fun verifyInputs(name: String, password: String, consumer: (Msg) -> Unit) {
+        delay(MOCK_DELAY)
+        val nameState = verifyUsername(name)
         val passwordState = verifyPassword(password)
 
-        consumer(Msg.Inner.InputsVerificationResult(emailState, passwordState))
+        when {
+            nameState.isValid && !passwordState.isValid -> {
+                consumer(Msg.Inner.InputsVerificationResult(nameState, passwordState))
+            }
+
+            !nameState.isValid && passwordState.isValid -> {
+                consumer(Msg.Inner.InputsVerificationResult(nameState, VerificationPasswordState.Idle))
+            }
+
+            !nameState.isValid && !passwordState.isValid -> {
+                consumer(Msg.Inner.InputsVerificationResult(nameState, VerificationPasswordState.Idle))
+            }
+
+            nameState.isValid && passwordState.isValid -> {
+                consumer(Msg.Inner.InputsVerificationResult(nameState, passwordState))
+            }
+        }
     }
 
     private fun verifyUsername(name: String): VerificationUsernameState = when {
@@ -75,7 +93,7 @@ class AuthProgram(
     }
 
     private suspend fun startAuth(name: String, password: String, consumer: (Msg) -> Unit) {
-        delay(2000)
+        delay(MOCK_DELAY)
         repository.authWithNameAndPassword(name, password)
             .onSuccess { status ->
                 when (status) {

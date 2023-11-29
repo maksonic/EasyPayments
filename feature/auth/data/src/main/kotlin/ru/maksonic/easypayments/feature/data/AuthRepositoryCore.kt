@@ -8,10 +8,9 @@ import ru.maksonic.easypayments.feature.domain.TokenStatus
 /**
  * @Author maksonic on 28.11.2023
  */
-// TODO: Fix
 class AuthRepositoryCore(
     private val apiService: ApiService,
-    private val tokenStore: TokenStore,
+    private val tokenStore: TokenStore
 ) : AuthRepository {
     override suspend fun authWithNameAndPassword(
         name: String,
@@ -32,9 +31,9 @@ class AuthRepositoryCore(
         onFailure = { Result.failure(it) }
     )
 
-    override fun logOut() = tokenStore.deleteToken()
-
     override fun getToken(): Result<String> = tokenStore.getToken()
+
+    override fun logOut() = tokenStore.deleteToken()
 
     override val isValidToken: Result<TokenStatus>
         get() = tokenStore.verifyToken().fold(

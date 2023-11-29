@@ -5,7 +5,7 @@ package ru.maksonic.easypayments.feature.domain
  */
 interface AuthRepository {
     suspend fun authWithNameAndPassword(name: String, password: String): Result<TokenStatus>
-    fun logOut(): Result<Boolean>
     fun getToken(): Result<String>
+    fun logOut(): Result<Boolean>
     val isValidToken: Result<TokenStatus>
 }
