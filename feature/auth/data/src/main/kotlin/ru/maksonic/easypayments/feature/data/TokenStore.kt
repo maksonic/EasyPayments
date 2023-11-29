@@ -49,4 +49,16 @@ class TokenStore(
             onFailure = { Result.failure(it) }
         )
     }
+
+    fun deleteToken(): Result<Boolean> = runCatching {
+        val file = File(context.filesDir, FILE_NAME)
+        if (file.exists()) {
+            context.deleteFile(file.name)
+        } else {
+            throw Exception("Token file not found")
+        }
+    }.fold(
+        onSuccess = { Result.success(true) },
+        onFailure = { Result.success(false) }
+    )
 }

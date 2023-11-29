@@ -19,8 +19,8 @@ import ru.maksonic.easypayments.utils.CryptoEngineCore
  * @Author maksonic on 27.11.2023
  */
 val appModule = module {
-    viewModel { MainActivityViewModel(authRepository = get()) }
-    single<RequestManager> { provideGlide(androidContext()) }
+    viewModel { MainActivityViewModel(checkTokenValidityUseCase = get()) }
+    single { Glide.with((androidContext())) }
     single<ResourceProvider> { ResourceProviderCore(androidContext()) }
     single(named(CoroutineDispatchers.IO)) { Dispatchers.IO }
     single(named(CoroutineDispatchers.DEFAULT)) { Dispatchers.Default }
@@ -28,4 +28,3 @@ val appModule = module {
     single<CryptoEngine> { CryptoEngineCore() }
 }
 
-private fun provideGlide(context: Context) = Glide.with(context)

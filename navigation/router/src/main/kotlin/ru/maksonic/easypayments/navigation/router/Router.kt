@@ -9,5 +9,6 @@ interface Router {
     fun navigateFromOnboardingToAuth(fragment: Fragment)
     fun navigateFromAuthToPayments(fragment: Fragment)
     fun navigateFromPaymentsToSettings(fragment: Fragment)
+    fun navigateFromSettingsToAuth(fragment: Fragment)
     fun onBack(fragment: Fragment)
 }

@@ -2,4 +2,8 @@
 <resources>
     <string name="top_bar_title">Настройки</string>
     <string name="btn_title_log_out">Выйти</string>
+    <string name="btn_title_log_in">Войти</string>
+    <string name="msg_success_log_out">Вы вышли из аккаунта \"demo\".</string>
+    <string name="error_log_out">Произошла ошибка. Повторите ещё раз.</string>
+    <string name="error_token_status">Ошибка в получении статуса авторизации.</string>
 </resources>

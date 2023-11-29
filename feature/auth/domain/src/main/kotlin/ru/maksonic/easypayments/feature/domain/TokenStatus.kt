@@ -7,3 +7,5 @@ sealed class TokenStatus {
     data object Valid : TokenStatus()
     data class Invalid(val cause: String) : TokenStatus()
 }
+
+val TokenStatus.isValid get() = this == TokenStatus.Valid

@@ -40,3 +40,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(ModuleInfo.Common.Core.path))
+}

@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/onboardingScreen"
-    android:id="@+id/navContainer">
+    android:id="@+id/navContainer"
+    app:startDestination="@id/onboardingScreen">
     <fragment
         android:id="@+id/onboardingScreen"
         android:name="ru.maksonic.easypayments.feature.onboarding.ui.OnboardingScreen"
-        android:label="OnboardingScreen" >
+        android:label="OnboardingScreen">
         <action
             android:id="@+id/action_onboardingScreen_to_authScreen"
             app:destination="@id/authScreen"
-            app:popUpTo="@id/onboardingScreen"
-            app:popUpToInclusive="false"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"/>
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/onboardingScreen"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
         android:name="ru.maksonic.easypayments.feature.ui.AuthScreen"
-        android:label="AuthScreen" >
+        android:label="AuthScreen">
         <action
             android:id="@+id/action_authScreen_to_paymentsScreen"
+            app:destination="@id/paymentsScreen"
             app:popUpTo="@id/navContainer"
-            app:popUpToInclusive="true"
-            app:destination="@id/paymentsScreen" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/paymentsScreen"
         android:name="ru.maksonic.easypayments.feature.payments.ui.PaymentsScreen"
-        android:label="PaymentsScreen" >
+        android:label="PaymentsScreen">
         <action
             android:id="@+id/action_paymentsScreen_to_settingsScreen"
             app:destination="@id/settingsScreen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/settingsScreen"
         android:name="ru.maksonic.easypayments.feature.settings.SettingsScreen"
-        android:label="SettingsScreen" >
+        android:label="SettingsScreen">
         <action
             android:id="@+id/action_settingsScreen_to_authScreen"
-            app:destination="@id/authScreen" />
+            app:destination="@id/authScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/authScreen"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

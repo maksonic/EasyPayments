@@ -9,6 +9,12 @@ import ru.maksonic.easypayments.feature.settings.core.SettingsSandbox
  * @Author maksonic on 29.11.2023
  */
 val settingsUiFeatureModule = module {
-    factory { SettingsProgram() }
+    factory {
+        SettingsProgram(
+            logOutUseCase = get(),
+            checkTokenValidityUseCase = get(),
+            resourceProvider = get()
+        )
+    }
     viewModel { SettingsSandbox(program = get()) }
 }
