@@ -45,7 +45,7 @@ dependencies {
     implementation(project(ModuleInfo.Navigation.Router.path))
     implementation(project(ModuleInfo.Feature.Onboarding.Ui.path))
     implementation(project(ModuleInfo.Feature.Auth.Ui.path))
-    implementation(project(ModuleInfo.Feature.Payments.path))
+    implementation(project(ModuleInfo.Feature.Payments.Ui.path))
     implementation(project(ModuleInfo.Feature.Settings.path))
     implementation(libs.core.ktx)
     implementation(libs.navigation.fragment)

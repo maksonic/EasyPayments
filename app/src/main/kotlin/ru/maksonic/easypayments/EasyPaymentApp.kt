@@ -5,11 +5,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.maksonic.easypayments.di.appModule
-import ru.maksonic.easypayments.feature.data.cloud.di.authCloudFeatureModule
+import ru.maksonic.easypayments.data.di.authCloudFeatureModule
 import ru.maksonic.easypayments.feature.data.di.authDataFeatureModule
 import ru.maksonic.easypayments.feature.onboarding.data.di.onboardingDataModule
 import ru.maksonic.easypayments.feature.onboarding.data.local.di.onboardingLocalDataModule
 import ru.maksonic.easypayments.feature.onboarding.ui.di.onboardingUiModule
+import ru.maksonic.easypayments.feature.payments.ui.di.paymentsUiFeatureModule
 import ru.maksonic.easypayments.feature.ui.di.authUiFeatureModule
 import ru.maksonic.easypayments.navigation.graph.di.navigationModule
 
@@ -25,7 +26,8 @@ class EasyPaymentApp : Application() {
         onboardingUiModule,
         authCloudFeatureModule,
         authDataFeatureModule,
-        authUiFeatureModule
+        authUiFeatureModule,
+        paymentsUiFeatureModule
     )
 
     override fun onCreate() {

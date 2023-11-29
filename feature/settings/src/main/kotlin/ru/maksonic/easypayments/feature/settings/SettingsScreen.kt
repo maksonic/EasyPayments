@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import ru.maksonic.easypayments.common.ui.BaseScreen
-import ru.maksonic.easypayments.feature.payments.databinding.ScreenSettingsBinding
+import ru.maksonic.easypayments.feature.settings.databinding.ScreenSettingsBinding
 
 /**
  * @Author maksonic on 29.11.2023

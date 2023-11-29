@@ -42,7 +42,10 @@ android {
 }
 dependencies {
     implementation(project(ModuleInfo.Common.Core.path))
-    implementation(libs.coroutines.android)
+    implementation(project(ModuleInfo.Feature.Auth.Domain.path))
+    implementation(libs.gson)
+    implementation(libs.koin.android)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
+    implementation(libs.retrofit.interceptor)
 }

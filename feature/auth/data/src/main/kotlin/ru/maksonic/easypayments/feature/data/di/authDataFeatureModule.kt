@@ -5,7 +5,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.maksonic.easypayments.common.core.CoroutineDispatchers
 import ru.maksonic.easypayments.feature.data.AuthRepositoryCore
-import ru.maksonic.easypayments.feature.data.local.TokenStore
+import ru.maksonic.easypayments.feature.data.TokenStore
 import ru.maksonic.easypayments.feature.domain.AuthRepository
 
 /**

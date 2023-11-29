@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/top_bar_title"
+        app:titleTextColor="@color/on_background"
+        app:navigationIcon="@drawable/ic_arrow_back_round"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -12,9 +19,11 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogOut"
         style="@style/EasyPay.Button.Primary"
-        app:backgroundTint="@color/error"
+        android:backgroundTint="@color/error"
         android:layout_width="match_parent"
         android:layout_height="@dimen/btn_primary_height"
         android:layout_marginBottom="@dimen/padding_24dp"
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginEnd="@dimen/padding_16dp"
         android:text="@string/btn_title_log_out" />
 </LinearLayout>

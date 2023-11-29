@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = ModuleInfo.Feature.Payments.namespace
+    namespace = ModuleInfo.Feature.Settings.namespace
     compileSdk = AndroidConfig.COMPILE_SDK
 
     defaultConfig {

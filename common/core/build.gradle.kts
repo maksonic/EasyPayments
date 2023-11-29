@@ -11,9 +11,6 @@ android {
         minSdk = AndroidConfig.MIN_SDK
 
         testInstrumentationRunner = AndroidConfig.TEST_RUNNER
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {

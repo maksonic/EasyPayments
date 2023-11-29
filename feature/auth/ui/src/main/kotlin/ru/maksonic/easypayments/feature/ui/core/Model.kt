@@ -8,7 +8,6 @@ import ru.maksonic.easypayments.common.core.elm.ElmModel
 /**
  * @Author maksonic on 27.11.2023
  */
-
 data class Model(
     val isVisibleLoader: Boolean,
     val username: String,

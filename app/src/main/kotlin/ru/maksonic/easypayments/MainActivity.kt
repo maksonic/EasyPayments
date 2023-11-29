@@ -17,32 +17,31 @@ import ru.maksonic.easypayments.databinding.ActivityMainBinding
 import ru.maksonic.easypayments.R.id.navGraphContainer
 import ru.maksonic.easypayments.navigation.graph.R.id.paymentsScreen
 import ru.maksonic.easypayments.navigation.graph.R.id.onboardingScreen
+import ru.maksonic.easypayments.navigation.graph.R.navigation.nav_graph
 
 private const val COLOR_TRANSPARENT = Color.TRANSPARENT
 
 class MainActivity : AppCompatActivity(), KeyboardController {
 
     private lateinit var binding: ActivityMainBinding
-    private val navController: NavController by lazy(::initNavController)
     private val viewModel: MainActivityViewModel by viewModel()
-
+    private val navController: NavController by lazy { initNavController() }
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-        super.onCreate(savedInstanceState)
-
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
                 lightScrim = COLOR_TRANSPARENT, darkScrim = COLOR_TRANSPARENT
             ),
             navigationBarStyle = SystemBarStyle.light(COLOR_TRANSPARENT, COLOR_TRANSPARENT)
         )
+        super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel.setStartDestinationByTokenStatus(
-            onValid = { navController.navigate(paymentsScreen) },
-            onInvalid = { navController.navigate(onboardingScreen) }
+            onValid = { setStartDestination(paymentsScreen) },
+            onInvalid = { setStartDestination(onboardingScreen) }
         )
     }
 
@@ -58,5 +57,11 @@ class MainActivity : AppCompatActivity(), KeyboardController {
     private fun initNavController(): NavController {
         val host = supportFragmentManager.findFragmentById(navGraphContainer) as NavHostFragment
         return host.navController
+    }
+
+    private fun setStartDestination(id: Int) {
+        val inflater = navController.navInflater
+        val graph = inflater.inflate(nav_graph).apply { setStartDestination(id) }
+        navController.graph = graph
     }
 }

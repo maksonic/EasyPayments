@@ -8,5 +8,6 @@ import androidx.fragment.app.Fragment
 interface Router {
     fun navigateFromOnboardingToAuth(fragment: Fragment)
     fun navigateFromAuthToPayments(fragment: Fragment)
+    fun navigateFromPaymentsToSettings(fragment: Fragment)
     fun onBack(fragment: Fragment)
 }

@@ -1,8 +1,7 @@
 package ru.maksonic.easypayments.feature.data
 
-import ru.maksonic.easypayments.feature.data.cloud.api.ApiService
-import ru.maksonic.easypayments.feature.data.cloud.api.AuthCredentials
-import ru.maksonic.easypayments.feature.data.local.TokenStore
+import ru.maksonic.easypayments.data.ApiService
+import ru.maksonic.easypayments.data.AuthCredentials
 import ru.maksonic.easypayments.feature.domain.AuthRepository
 import ru.maksonic.easypayments.feature.domain.TokenStatus
 
@@ -20,8 +19,10 @@ class AuthRepositoryCore(
         apiService.authWithUsernameAndPassword(AuthCredentials(name, password))
     }.fold(
         onSuccess = {
-            if (!it.response.token.isNullOrBlank()) {
-                tokenStore.saveToken(it.response.token.encodeToByteArray())
+            val token = it.response.token ?: ""
+
+            if (token.isNotBlank()) {
+                tokenStore.saveToken(token.encodeToByteArray())
                 Result.success(TokenStatus.Valid)
             } else {
                 Result.success(TokenStatus.Invalid("Token is null!"))

@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/paymentsScreen"
-        android:name="ru.maksonic.easypayments.feature.payments.PaymentsScreen"
+        android:name="ru.maksonic.easypayments.feature.payments.ui.PaymentsScreen"
         android:label="PaymentsScreen" >
         <action
             android:id="@+id/action_paymentsScreen_to_settingsScreen"

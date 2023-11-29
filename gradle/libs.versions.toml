@@ -18,6 +18,7 @@ coroutines = "1.7.3"
 json = "1.6.0"
 # Retrofit
 retrofit = "2.9.0"
+retrofit-interceptor = "3.8.0"
 # Room
 room = "2.6.0"
 # Test
@@ -48,6 +49,7 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 # Network
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+retrofit-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "retrofit-interceptor"}
 # Room
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
