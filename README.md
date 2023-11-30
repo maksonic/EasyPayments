@@ -1,2 +1,2 @@
 # EasyPayments
-Test for AEON complany.
+Test for AEON company.
