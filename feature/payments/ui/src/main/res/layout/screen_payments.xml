@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_settings_round"
+        app:navigationIconTint="@color/on_background" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_settings_round"
-            app:navigationIconTint="@color/on_background" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/catalogRecyclerView"
@@ -28,20 +28,20 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:spanCount="1"
             tools:listitem="@layout/item_payment" />
-    </LinearLayout>
 
-    <include
-        android:id="@+id/stateEmptyList"
-        layout="@layout/placeholder_empty_list"
-        android:visibility="gone" />
+        <include
+            android:id="@+id/stateEmptyList"
+            layout="@layout/placeholder_empty_list"
+            android:visibility="gone" />
 
-    <include
-        android:id="@+id/stateNotAuthorized"
-        layout="@layout/placeholder_not_authorized"
-        android:visibility="gone" />
+        <include
+            android:id="@+id/stateNotAuthorized"
+            layout="@layout/placeholder_not_authorized"
+            android:visibility="gone" />
 
-    <include
-        android:id="@+id/stateLoading"
-        layout="@layout/state_loading"
-        android:visibility="gone" />
-</FrameLayout>
+        <include
+            android:id="@+id/stateLoading"
+            layout="@layout/state_loading"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>
