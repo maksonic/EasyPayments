@@ -2,7 +2,10 @@ package ru.maksonic.easypayments.feature.data
 
 import android.content.Context
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.maksonic.easypayments.common.core.CryptoEngine
+import ru.maksonic.easypayments.feature.domain.TokenStatus
 import java.io.File
 
 /**
@@ -30,14 +33,16 @@ class TokenStore(
         }
     }
 
-    fun verifyToken(): Result<Boolean> = runCatching {
-        val encryptedPin = context.openFileInput(FILE_NAME).readBytes()
-        val decrypted = cryptoEngine.decrypt(encryptedPin)
+    fun verifyToken(): Flow<TokenStatus> = flow {
+        val file = File(context.filesDir, FILE_NAME)
 
-        return decrypted.fold(
-            onSuccess = { Result.success(it.isNotEmpty()) },
-            onFailure = { Result.success(false) }
-        )
+        if (file.exists()) {
+            cryptoEngine.decrypt(file.readBytes())
+                .onSuccess { emit(TokenStatus.Valid) }
+                .onFailure { emit(TokenStatus.Invalid(it.localizedMessage ?: "Invalid token")) }
+        } else {
+            emit(TokenStatus.Invalid("Token file not found"))
+        }
     }
 
     fun getToken(): Result<String> = runCatching {
@@ -50,15 +55,10 @@ class TokenStore(
         )
     }
 
-    fun deleteToken(): Result<Boolean> = runCatching {
+    fun deleteToken() {
         val file = File(context.filesDir, FILE_NAME)
         if (file.exists()) {
             context.deleteFile(file.name)
-        } else {
-            throw Exception("Token file not found")
         }
-    }.fold(
-        onSuccess = { Result.success(true) },
-        onFailure = { Result.success(false) }
-    )
+    }
 }

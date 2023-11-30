@@ -1,5 +1,6 @@
 package ru.maksonic.easypayments.feature.data
 
+import kotlinx.coroutines.flow.Flow
 import ru.maksonic.easypayments.feature.domain.AuthRepository
 import ru.maksonic.easypayments.feature.domain.CheckTokenValidityUseCase
 import ru.maksonic.easypayments.feature.domain.TokenStatus
@@ -9,6 +10,6 @@ import ru.maksonic.easypayments.feature.domain.TokenStatus
  */
 class CheckTokenValidityUseCaseImpl(
     private val repository: AuthRepository
-): CheckTokenValidityUseCase {
-    override fun invoke(): Result<TokenStatus> = repository.isValidToken
+) : CheckTokenValidityUseCase {
+    override fun invoke(): Flow<TokenStatus> = repository.isValidToken
 }

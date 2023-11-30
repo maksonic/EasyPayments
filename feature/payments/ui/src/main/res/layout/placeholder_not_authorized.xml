@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Войдите чтобы просмотреть список платежей."
+            android:text="@string/placeholder_title_not_authorized"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 

@@ -92,22 +92,18 @@ class AuthProgram(
         else -> VerificationPasswordState.Valid
     }
 
-    private suspend fun startAuth(name: String, password: String, consumer: (Msg) -> Unit) {
-        delay(MOCK_DELAY)
-        repository.authWithNameAndPassword(name, password)
-            .onSuccess { status ->
-                when (status) {
-                    is TokenStatus.Valid -> {
-                        consumer(Msg.Inner.FetchedValidTokenStatus)
-                    }
+    private suspend fun startAuth(name: String, password: String, consumer: (Msg) -> Unit) =
+        repository.authWithNameAndPassword(name, password).collect { status ->
+            delay(MOCK_DELAY)
 
-                    is TokenStatus.Invalid -> {
-                        consumer(Msg.Inner.FetchedInvalidTokenStatus(status.cause))
-                    }
+            when (status) {
+                is TokenStatus.Valid -> {
+                    consumer(Msg.Inner.FetchedValidTokenStatus)
                 }
-            }.onFailure {
-                val failInfo = resourceProvider.getString(R.string.error_invalid_token)
-                consumer(Msg.Inner.FetchedInvalidTokenStatus(it.localizedMessage ?: failInfo))
+
+                is TokenStatus.Invalid -> {
+                    consumer(Msg.Inner.FetchedInvalidTokenStatus(status.cause))
+                }
             }
-    }
+        }
 }

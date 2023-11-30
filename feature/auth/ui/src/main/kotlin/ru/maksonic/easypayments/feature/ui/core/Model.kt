@@ -19,8 +19,8 @@ data class Model(
     companion object {
         val Initial = Model(
             isVisibleLoader = false,
-            username = "",
-            password = "",
+            username = "demo",
+            password = "12345",
             usernameState = VerificationUsernameState.Idle,
             passwordState = VerificationPasswordState.Idle
         )

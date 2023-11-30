@@ -10,6 +10,7 @@ import ru.maksonic.easypayments.feature.data.di.authDataFeatureModule
 import ru.maksonic.easypayments.feature.onboarding.data.di.onboardingDataModule
 import ru.maksonic.easypayments.feature.onboarding.data.local.di.onboardingLocalDataModule
 import ru.maksonic.easypayments.feature.onboarding.ui.di.onboardingUiModule
+import ru.maksonic.easypayments.feature.payments.data.di.paymentsDataFeatureModule
 import ru.maksonic.easypayments.feature.payments.ui.di.paymentsUiFeatureModule
 import ru.maksonic.easypayments.feature.settings.di.settingsUiFeatureModule
 import ru.maksonic.easypayments.feature.ui.di.authUiFeatureModule
@@ -28,6 +29,7 @@ class EasyPaymentApp : Application() {
         authCloudFeatureModule,
         authDataFeatureModule,
         authUiFeatureModule,
+        paymentsDataFeatureModule,
         paymentsUiFeatureModule,
         settingsUiFeatureModule
     )

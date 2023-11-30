@@ -44,5 +44,7 @@ android {
 dependencies {
     implementation(project(ModuleInfo.Common.Core.path))
     implementation(project(ModuleInfo.Data.path))
+    implementation(project(ModuleInfo.Feature.Auth.Domain.path))
+    implementation(project(ModuleInfo.Feature.Payments.Domain.path))
     implementation(libs.koin.android)
 }

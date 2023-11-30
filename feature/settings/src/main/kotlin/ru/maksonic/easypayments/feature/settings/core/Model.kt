@@ -30,9 +30,7 @@ sealed class Msg : ElmMessage {
     }
 
     sealed class Inner : Msg() {
-        data class ShowedLogOutError(val cause: String) : Inner()
         data class FetchedTokenStatus(val isValid: Boolean) : Inner()
-        data object SuccessfulLogOut : Inner()
     }
 }
 

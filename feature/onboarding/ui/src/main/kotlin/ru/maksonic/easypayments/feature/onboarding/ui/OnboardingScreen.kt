@@ -50,6 +50,7 @@ class OnboardingScreen : BaseScreen<ScreenOnboardingBinding, Model, Eff>() {
         is Eff.ScrollToNextPage -> {
             binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1, true)
         }
+
         is Eff.NavigateToAuth -> {
             router.navigateFromOnboardingToAuth(this@OnboardingScreen)
         }

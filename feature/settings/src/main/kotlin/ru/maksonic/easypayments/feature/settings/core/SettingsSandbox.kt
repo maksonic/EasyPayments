@@ -18,8 +18,6 @@ class SettingsSandbox(program: SettingsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         is Msg.Ui.OnShowLogOutDialogClicked -> onShowLogOutDialogClicked(model)
         is Msg.Ui.OnLogOutClicked -> onLogOutClicked(model)
         is Msg.Inner.FetchedTokenStatus -> fetchedTokenStatus(model, msg)
-        is Msg.Inner.SuccessfulLogOut -> successfulLogOut(model)
-        is Msg.Inner.ShowedLogOutError -> showedLogOutError(model, msg)
         is Msg.Ui.OnAuthClicked -> onAuthClicked(model)
         is Msg.Ui.OnDeclineLogOutDialogClicked -> onDeclineLogOutDialogClicked(model)
     }
@@ -30,17 +28,14 @@ class SettingsSandbox(program: SettingsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
     private fun onShowLogOutDialogClicked(model: Model): Update =
         ElmUpdate(model.copy(isVisibleLogOutDialog = true))
 
-    private fun onLogOutClicked(model: Model): Update =
-        ElmUpdate(model.copy(isVisibleLogOutDialog = false), commands = setOf(Cmd.LogOut))
+    private fun onLogOutClicked(model: Model): Update = ElmUpdate(
+        model = model.copy(isLogOutBtn = false, isVisibleLogOutDialog = false),
+        commands = setOf(Cmd.LogOut),
+        effects = setOf(Eff.ShowLogOutSuccessToast)
+    )
 
     private fun fetchedTokenStatus(model: Model, msg: Msg.Inner.FetchedTokenStatus): Update =
         ElmUpdate(model.copy(isLogOutBtn = msg.isValid))
-
-    private fun successfulLogOut(model: Model): Update =
-        ElmUpdate(model.copy(isLogOutBtn = false), effects = setOf(Eff.ShowLogOutSuccessToast))
-
-    private fun showedLogOutError(model: Model, msg: Msg.Inner.ShowedLogOutError): Update =
-        ElmUpdate(model, effects = setOf(Eff.ShowLogOutErrorToast(msg.cause)))
 
     private fun onAuthClicked(model: Model): Update =
         ElmUpdate(model, effects = setOf(Eff.NavigateToAuth))

@@ -1,4 +1,4 @@
-package ru.maksonic.easypayments.data
+package ru.maksonic.easypayments.data.auth
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

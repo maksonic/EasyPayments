@@ -16,6 +16,10 @@ class AppNavigator : AbstractNavigator(), Router {
         fragment.navigate(R.id.action_authScreen_to_paymentsScreen)
     }
 
+    override fun navigateFromPaymentsToAuth(fragment: Fragment) {
+        fragment.navigate(R.id.action_paymentsScreen_to_authScreen)
+    }
+
     override fun navigateFromPaymentsToSettings(fragment: Fragment) {
         fragment.navigate(R.id.action_paymentsScreen_to_settingsScreen)
     }

@@ -22,9 +22,10 @@ private const val COLOR_TRANSPARENT = Color.TRANSPARENT
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainActivityViewModel by viewModel()
     private val navController: NavController by lazy { initNavController() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         enableEdgeToEdge(
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         )
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         applySystemBarsInsets()
 

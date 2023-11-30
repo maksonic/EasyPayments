@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btn_title_auth">Войти</string>
+    <string name="placeholder_title_not_authorized">Войдите чтобы просмотреть список платежей.</string>
+    <string name="placeholder_title_empty_list">Список платежей пуст.</string>
+    <string name="title_payment_id">№ %1$d</string>
+    <string name="title_empty_created">Без даты</string>
+    <string name="title_empty_amount">Не определено</string>
 </resources>

@@ -9,6 +9,6 @@ import ru.maksonic.easypayments.feature.payments.ui.core.PaymentsSandbox
  * @Author maksonic on 29.11.2023
  */
 val paymentsUiFeatureModule = module {
-    factory { PaymentsProgram() }
+    factory { PaymentsProgram(fetchPaymentsUseCase = get(), checkTokenValidityUseCase = get()) }
     viewModel { PaymentsSandbox(program = get()) }
 }

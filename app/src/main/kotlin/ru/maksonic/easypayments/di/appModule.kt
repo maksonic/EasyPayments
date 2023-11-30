@@ -1,8 +1,6 @@
 package ru.maksonic.easypayments.di
 
-import android.content.Context
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -12,8 +10,12 @@ import ru.maksonic.easypayments.MainActivityViewModel
 import ru.maksonic.easypayments.ResourceProviderCore
 import ru.maksonic.easypayments.common.core.CoroutineDispatchers
 import ru.maksonic.easypayments.common.core.CryptoEngine
+import ru.maksonic.easypayments.common.ui.PaymentAmountUiFormatter
+import ru.maksonic.easypayments.common.ui.PaymentDateUiFormatter
 import ru.maksonic.easypayments.common.ui.ResourceProvider
 import ru.maksonic.easypayments.utils.CryptoEngineCore
+import ru.maksonic.easypayments.utils.PaymentAmountUiFormatterCore
+import ru.maksonic.easypayments.utils.PaymentDateUiFormatterCore
 
 /**
  * @Author maksonic on 27.11.2023
@@ -26,5 +28,6 @@ val appModule = module {
     single(named(CoroutineDispatchers.DEFAULT)) { Dispatchers.Default }
     single(named(CoroutineDispatchers.MAIN)) { Dispatchers.Main }
     single<CryptoEngine> { CryptoEngineCore() }
+    factory<PaymentAmountUiFormatter> { PaymentAmountUiFormatterCore() }
+    factory<PaymentDateUiFormatter> { PaymentDateUiFormatterCore() }
 }
-
