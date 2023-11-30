@@ -32,6 +32,7 @@ sealed class Msg : ElmMessage {
     sealed class Ui : Msg() {
         data object OnSettingBtnClicked : Ui()
         data object OnAuthBtnClicked : Ui()
+        data object OnRetryFetchPaymentsBtnClicked : Ui()
         data class OnPaymentClicked(val title: String) : Ui()
     }
 
@@ -43,6 +44,7 @@ sealed class Msg : ElmMessage {
 
 sealed class Cmd : ElmCommand {
     data object FetchPayments : Cmd()
+    data object RetryFetchPayments : Cmd()
     data object CheckTokenInvalidStatus : Cmd()
 }
 

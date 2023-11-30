@@ -40,13 +40,12 @@ class PaymentsScreen : BaseScreen<ScreenPaymentsBinding, Model, Eff>() {
 
     override fun render(savedInstanceState: Bundle?) {
         initRecycler()
-        initAuthLickListener()
-        initSettingsLickListener()
+        initClickListeners()
+        initTopBarClickListener()
 
         sandbox.model.render()
         sandbox.effects.handle()
     }
-
 
     override fun renderModel(model: Model) {
         when (model.paymentsState) {
@@ -65,12 +64,19 @@ class PaymentsScreen : BaseScreen<ScreenPaymentsBinding, Model, Eff>() {
         }
     }
 
-    private fun initSettingsLickListener() = binding.toolBar.setNavigationOnClickListener {
-        sandbox.send(Msg.Ui.OnSettingBtnClicked)
+    private fun initClickListeners() = with(binding) {
+        val listener = View.OnClickListener { view ->
+            when (view?.id) {
+                stateNotAuthorized.btnAuth.id -> sandbox.send(Msg.Ui.OnAuthBtnClicked)
+                stateEmptyList.btnRetry.id -> sandbox.send(Msg.Ui.OnRetryFetchPaymentsBtnClicked)
+            }
+        }
+        stateNotAuthorized.btnAuth.setOnClickListener(listener)
+        stateEmptyList.btnRetry.setOnClickListener(listener)
     }
 
-    private fun initAuthLickListener() = binding.stateNotAuthorized.btnAuth.setOnClickListener {
-        sandbox.send(Msg.Ui.OnAuthBtnClicked)
+    private fun initTopBarClickListener() = binding.toolBar.setNavigationOnClickListener {
+        sandbox.send(Msg.Ui.OnSettingBtnClicked)
     }
 
     private fun initPaymentAdapter() = PaymentAdapter(amountFormatter, dateFormatter) { payment ->
@@ -90,6 +96,7 @@ class PaymentsScreen : BaseScreen<ScreenPaymentsBinding, Model, Eff>() {
     private fun emptyState() = with(binding) {
         stateNotAuthorized.root.visibility = View.GONE
         stateEmptyList.root.visibility = View.VISIBLE
+        stateLoading.root.visibility = View.GONE
     }
 
     private fun notAuthorizedState() = with(binding) {
@@ -99,8 +106,8 @@ class PaymentsScreen : BaseScreen<ScreenPaymentsBinding, Model, Eff>() {
     }
 
     private fun successState(payments: List<Payment>) = with(binding) {
-        stateEmptyList.root.visibility = View.GONE
         stateNotAuthorized.root.visibility = View.GONE
+        stateEmptyList.root.visibility = View.GONE
         stateLoading.root.visibility = View.GONE
         catalogRecyclerView.visibility = View.VISIBLE
         adapter.submitList(payments)

@@ -17,6 +17,7 @@ class PaymentsSandbox(program: PaymentsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
         is Msg.Ui.OnSettingBtnClicked -> onSettingBtnClicked(model)
         is Msg.Ui.OnAuthBtnClicked -> onAuthBtnClicked(model)
         is Msg.Ui.OnPaymentClicked -> onPaymentClicked(model, msg)
+        is Msg.Ui.OnRetryFetchPaymentsBtnClicked -> onRetryFetchPaymentsBtnClicked(model)
         is Msg.Inner.FetchedPayments -> fetchedPayments(model, msg)
         is Msg.Inner.CheckTokenInvalidStatus -> checkTokenInvalidStatus(model)
     }
@@ -29,6 +30,11 @@ class PaymentsSandbox(program: PaymentsProgram) : Sandbox<Model, Msg, Cmd, Eff>(
 
     private fun onPaymentClicked(model: Model, msg: Msg.Ui.OnPaymentClicked): Update =
         ElmUpdate(model, effects = setOf(Eff.ShowPaymentTitleToast(msg.title)))
+
+    private fun onRetryFetchPaymentsBtnClicked(model: Model): Update = ElmUpdate(
+        model = model.copy(paymentsState = PaymentsState.Loading),
+        commands = setOf(Cmd.RetryFetchPayments)
+    )
 
     private fun fetchedPayments(model: Model, msg: Msg.Inner.FetchedPayments): Update =
         ElmUpdate(model.copy(paymentsState = msg.state, payments = msg.data))

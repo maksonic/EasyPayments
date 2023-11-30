@@ -8,5 +8,6 @@ import ru.maksonic.easypayments.feature.payments.domain.Payments
  * @Author maksonic on 30.11.2023
  */
 class FetchPaymentsUseCaseImpl(private val api: ApiService) : FetchPaymentsUseCase {
-    override suspend fun invoke(): Payments = api.getPayments().response.toDomain()
+    override suspend fun invoke(): Payments = runCatching { api.getPayments().response.toDomain() }
+        .getOrDefault(emptyList())
 }
